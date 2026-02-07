@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, ScrollView, SafeAreaView, Platform, StatusBar, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, SafeAreaView, Platform, StatusBar, StyleSheet, ActivityIndicator, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../constants/theme';
 import { LANGUAGES, SCENARIOS, getPromptForSelection } from '../constants/data';
@@ -67,7 +67,9 @@ export const HomeScreen = () => {
             if (result.success) {
                 setFeedback(result.data);
             } else {
-                setError(result.error);
+                // TypeScript needs help narrowing here sometimes
+                const errorResult = result as { success: false; error: string };
+                setError(errorResult.error);
             }
         } catch (err) {
             setError('An unexpected error occurred. Please try again.');
@@ -99,8 +101,11 @@ export const HomeScreen = () => {
         >
             <SafeAreaView style={styles.safeArea}>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>LangPal</Text>
-                    <Text style={styles.headerSubtitle}>Practice Real Conversations</Text>
+                    <Image
+                        source={require('../../assets/LangPal-Logo.png')}
+                        style={styles.logo}
+                        resizeMode="contain"
+                    />
                 </View>
 
                 <ScrollView
@@ -170,17 +175,9 @@ const styles = StyleSheet.create({
         paddingVertical: SPACING.m,
         marginBottom: SPACING.xs,
     },
-    headerTitle: {
-        color: '#FFFFFF',
-        fontSize: FONT_SIZES.l,
-        fontWeight: '800',
-        letterSpacing: 2,
-        textTransform: 'uppercase',
-    },
-    headerSubtitle: {
-        color: 'rgba(255, 255, 255, 0.8)',
-        fontSize: FONT_SIZES.s,
-        marginTop: SPACING.xs,
+    logo: {
+        width: 180,
+        height: 60,
     },
     scrollView: {
         flex: 1,
