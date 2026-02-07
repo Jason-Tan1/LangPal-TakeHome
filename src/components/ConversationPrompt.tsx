@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../constants/theme';
 import { Prompt } from '../types';
 
@@ -12,6 +12,13 @@ export const ConversationPrompt: React.FC<ConversationPromptProps> = ({
     prompt,
     isVisible,
 }) => {
+    const [isHintVisible, setIsHintVisible] = useState(false);
+
+    // Reset hint visibility when prompt changes
+    useEffect(() => {
+        setIsHintVisible(false);
+    }, [prompt]);
+
     if (!isVisible) {
         return (
             <View style={styles.container}>
@@ -37,8 +44,20 @@ export const ConversationPrompt: React.FC<ConversationPromptProps> = ({
                     <Text style={styles.text}>{prompt.goal}</Text>
                     {prompt.hints.length > 0 && (
                         <View style={styles.hintsContainer}>
-                            <Text style={styles.hintLabel}>💡 Tip:</Text>
-                            <Text style={styles.hintText}>{prompt.hints[0]}</Text>
+                            {!isHintVisible ? (
+                                <TouchableOpacity
+                                    style={styles.hintButton}
+                                    onPress={() => setIsHintVisible(true)}
+                                    activeOpacity={0.8}
+                                >
+                                    <Text style={styles.hintButtonText}>💡 Need a hint?</Text>
+                                </TouchableOpacity>
+                            ) : (
+                                <View style={styles.hintContent}>
+                                    <Text style={styles.hintLabel}>💡 Tip:</Text>
+                                    <Text style={styles.hintText}>{prompt.hints[0]}</Text>
+                                </View>
+                            )}
                         </View>
                     )}
                 </View>
@@ -86,6 +105,23 @@ const styles = StyleSheet.create({
         paddingTop: SPACING.s,
         borderTopWidth: 1,
         borderTopColor: COLORS.border,
+    },
+    hintButton: {
+        backgroundColor: '#FFF8E1',
+        paddingVertical: 6,
+        paddingHorizontal: 12,
+        borderRadius: 20,
+        alignSelf: 'flex-start',
+        borderWidth: 1,
+        borderColor: COLORS.secondary,
+    },
+    hintButtonText: {
+        color: COLORS.warning,
+        fontSize: 13,
+        fontWeight: '600',
+    },
+    hintContent: {
+        marginTop: 4,
     },
     hintLabel: {
         color: COLORS.warning,

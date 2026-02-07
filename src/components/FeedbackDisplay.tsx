@@ -68,7 +68,7 @@ export const FeedbackDisplay: React.FC<FeedbackDisplayProps> = ({
                 {/* Suggestions */}
                 {feedback.suggestions.length > 0 && (
                     <View style={styles.suggestionsContainer}>
-                        <Text style={styles.suggestionsTitle}>📝 Suggestions:</Text>
+                        <Text style={styles.suggestionsTitle}>Suggestions:</Text>
                         {feedback.suggestions.map((suggestion, index) => (
                             <View key={index} style={styles.suggestionItem}>
                                 <Text style={styles.bulletPoint}>•</Text>
@@ -84,7 +84,7 @@ export const FeedbackDisplay: React.FC<FeedbackDisplayProps> = ({
                     onPress={onNewSession}
                     activeOpacity={0.8}
                 >
-                    <Text style={styles.tryAgainText}>🔄 Try Again</Text>
+                    <Text style={styles.tryAgainText}>Try Again</Text>
                 </TouchableOpacity>
             </View>
         </View>
