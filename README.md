@@ -16,7 +16,11 @@ A simple mobile experience to help users practice real-world language conversati
 3.  **Run on Device/Emulator**:
     -   **iOS Simulator**: Press `i` in the terminal.
     -   **Android Emulator**: Press `a` in the terminal.
-    -   **Physical Device**: Download the **Expo Go** app and scan the QR code displayed in the terminal.
+    -   **Physical Device (Recommended)**:
+        1.  Download the **Expo Go** app from the [App Store](https://apps.apple.com/us/app/expo-go/id982107779) (iOS) or [Google Play](https://play.google.com/store/apps/details?id=host.exp.exponent) (Android).
+        2.  Ensure your phone and computer are connected to the **same Wi-Fi network**.
+        3.  **Android**: Open Expo Go and scan the QR code displayed in your terminal.
+        4.  **iOS**: Open the default Camera app and scan the QR code. Tap the notification to open in Expo Go.
 
 ## Tech Stack
 -   **React Native** (via Expo)
@@ -37,4 +41,4 @@ A simple mobile experience to help users practice real-world language conversati
 -   **TypeScript**: Used strict typing for all data models (`Language`, `Scenario`, `Prompt`, `Feedback`) to prevent runtime errors and improve developer experience.
 
 ## Screen Recording
-[Link or embedded video of the app walkthrough]
+[Watch the Demo Video](https://mail.google.com/mail/u/0/#inbox/FMfcgzQfBkLLGCDPqFWtkJqsVDffJWQV?projector=1)
