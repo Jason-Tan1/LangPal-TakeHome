@@ -142,14 +142,6 @@ export const HomeScreen = () => {
             style={styles.container}
         >
             <SafeAreaView style={styles.safeArea}>
-                <View style={styles.header}>
-                    <Image
-                        source={require('../../assets/LangPal-Logo.png')}
-                        style={styles.logo}
-                        resizeMode="contain"
-                    />
-                </View>
-
                 <KeyboardAvoidingView
                     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                     style={{ flex: 1 }}
@@ -165,6 +157,14 @@ export const HomeScreen = () => {
                         ]}
                         keyboardShouldPersistTaps="handled"
                     >
+                        <View style={styles.header}>
+                            <Image
+                                source={require('../../assets/LangPal-Logo.png')}
+                                style={styles.logo}
+                                resizeMode="contain"
+                            />
+                        </View>
+
                         {/* Language Selection */}
                         <LanguageSelector
                             languages={LANGUAGES}
