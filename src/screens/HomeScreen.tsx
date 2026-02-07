@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, ScrollView, SafeAreaView, Platform, StatusBar, StyleSheet, ActivityIndicator, Image, Alert } from 'react-native';
+import { View, Text, ScrollView, SafeAreaView, Platform, StatusBar, StyleSheet, Image, Alert, KeyboardAvoidingView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../constants/theme';
 import { LANGUAGES, SCENARIOS, getPromptForSelection } from '../constants/data';
@@ -90,11 +90,7 @@ export const HomeScreen = () => {
         }
     }, [selectedLanguage, selectedScenario, userResponse]);
 
-    // Handle retry after error
-    const handleRetry = useCallback(() => {
-        setError(null);
-        handleSubmit();
-    }, [handleSubmit]);
+
 
     // Handle starting a new practice session
     const handleNewSession = useCallback(() => {
@@ -105,6 +101,16 @@ export const HomeScreen = () => {
 
     // Only disable if currently loading
     const isSubmitDisabled = isLoading;
+
+    // Create a ref for the ScrollView
+    const scrollViewRef = React.useRef<ScrollView>(null);
+
+    // Function to scroll to bottom when input is focused
+    const handleInputFocus = () => {
+        setTimeout(() => {
+            scrollViewRef.current?.scrollToEnd({ animated: true });
+        }, 150);
+    };
 
     return (
         <LinearGradient
@@ -120,55 +126,62 @@ export const HomeScreen = () => {
                     />
                 </View>
 
-                <ScrollView
-                    style={styles.scrollView}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={styles.content}
-                    keyboardShouldPersistTaps="handled"
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                    style={{ flex: 1 }}
+                    keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
                 >
-                    {/* Language Selection */}
-                    <LanguageSelector
-                        languages={LANGUAGES}
-                        selectedLanguage={selectedLanguage}
-                        onSelect={handleLanguageSelect}
-                    />
+                    <ScrollView
+                        ref={scrollViewRef}
+                        style={styles.scrollView}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={styles.content}
+                        keyboardShouldPersistTaps="handled"
+                    >
+                        {/* Language Selection */}
+                        <LanguageSelector
+                            languages={LANGUAGES}
+                            selectedLanguage={selectedLanguage}
+                            onSelect={handleLanguageSelect}
+                        />
 
-                    {/* Scenario Selection */}
-                    <ScenarioSelector
-                        scenarios={SCENARIOS}
-                        selectedScenario={selectedScenario}
-                        onSelect={handleScenarioSelect}
-                    />
+                        {/* Scenario Selection */}
+                        <ScenarioSelector
+                            scenarios={SCENARIOS}
+                            selectedScenario={selectedScenario}
+                            onSelect={handleScenarioSelect}
+                        />
 
-                    {/* Conversation Prompt */}
-                    <ConversationPrompt
-                        prompt={currentPrompt}
-                        isVisible={!!selectedLanguage && !!selectedScenario}
-                    />
+                        {/* Conversation Prompt */}
+                        <ConversationPrompt
+                            prompt={currentPrompt}
+                            isVisible={!!selectedLanguage && !!selectedScenario}
+                        />
 
-                    {/* Error Display */}
-                    {error && (
-                        <View style={styles.errorContainer}>
-                            <Text style={styles.errorText}>⚠️ {error}</Text>
-                        </View>
-                    )}
+                        {/* Error Display */}
+                        {error && (
+                            <View style={styles.errorContainer}>
+                                <Text style={styles.errorText}>⚠️ {error}</Text>
+                            </View>
+                        )}
 
-                    {/* Response Input */}
-                    <ResponseInput
-                        value={userResponse}
-                        onChange={handleResponseChange}
-                        onSubmit={handleSubmit}
-                        isLoading={isLoading}
-                        isDisabled={isSubmitDisabled}
-                        hasSelections={!!selectedLanguage && !!selectedScenario}
-                    />
+                        {/* Response Input */}
+                        <ResponseInput
+                            value={userResponse}
+                            onChange={handleResponseChange}
+                            onSubmit={handleSubmit}
+                            isLoading={isLoading}
+                            isDisabled={isSubmitDisabled}
+                            onFocus={handleInputFocus}
+                        />
 
-                    {/* Feedback Display */}
-                    <FeedbackDisplay
-                        feedback={feedback}
-                        onNewSession={handleNewSession}
-                    />
-                </ScrollView>
+                        {/* Feedback Display */}
+                        <FeedbackDisplay
+                            feedback={feedback}
+                            onNewSession={handleNewSession}
+                        />
+                    </ScrollView>
+                </KeyboardAvoidingView>
             </SafeAreaView>
         </LinearGradient>
     );
@@ -196,7 +209,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: SPACING.m,
     },
     content: {
-        paddingBottom: SPACING.xl,
+        paddingBottom: 250, // Extra padding to ensure input is fully visible above keyboard
     },
     errorContainer: {
         backgroundColor: 'rgba(244, 67, 54, 0.9)',

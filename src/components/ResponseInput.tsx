@@ -8,7 +8,7 @@ interface ResponseInputProps {
     onSubmit: () => void;
     isLoading: boolean;
     isDisabled: boolean;
-    hasSelections: boolean;
+    onFocus?: () => void;
 }
 
 export const ResponseInput: React.FC<ResponseInputProps> = ({
@@ -17,7 +17,7 @@ export const ResponseInput: React.FC<ResponseInputProps> = ({
     onSubmit,
     isLoading,
     isDisabled,
-    hasSelections,
+    onFocus,
 }) => {
     return (
         <View style={styles.container}>
@@ -27,10 +27,13 @@ export const ResponseInput: React.FC<ResponseInputProps> = ({
                 multiline
                 value={value}
                 onChangeText={onChange}
+                onFocus={onFocus}
                 placeholder="Type your response here..."
                 placeholderTextColor={COLORS.textSecondary}
                 textAlignVertical="top"
                 editable={!isLoading}
+                blurOnSubmit={true}
+                returnKeyType="done"
             />
             <TouchableOpacity
                 style={[
