@@ -23,21 +23,14 @@ export const ResponseInput: React.FC<ResponseInputProps> = ({
         <View style={styles.container}>
             <Text style={styles.label}>Your Response</Text>
             <TextInput
-                style={[
-                    styles.input,
-                    !hasSelections && styles.inputDisabled,
-                ]}
+                style={styles.input}
                 multiline
                 value={value}
                 onChangeText={onChange}
-                placeholder={
-                    hasSelections
-                        ? "Type your response here... Try using key vocabulary and polite phrases!"
-                        : "Select a language and scenario first..."
-                }
-                placeholderTextColor={hasSelections ? COLORS.textSecondary : 'rgba(0,0,0,0.3)'}
+                placeholder="Type your response here..."
+                placeholderTextColor={COLORS.textSecondary}
                 textAlignVertical="top"
-                editable={hasSelections && !isLoading}
+                editable={!isLoading}
             />
             <TouchableOpacity
                 style={[
@@ -55,7 +48,7 @@ export const ResponseInput: React.FC<ResponseInputProps> = ({
                     </View>
                 ) : (
                     <Text style={styles.buttonText}>
-                        {!hasSelections ? 'Make Selections First' : 'Send Response'}
+                        Send Response
                     </Text>
                 )}
             </TouchableOpacity>
@@ -89,9 +82,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 2,
         elevation: 2,
-    },
-    inputDisabled: {
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
     },
     button: {
         backgroundColor: COLORS.primary,

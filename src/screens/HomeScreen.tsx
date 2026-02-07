@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, ScrollView, SafeAreaView, Platform, StatusBar, StyleSheet, ActivityIndicator, Image } from 'react-native';
+import { View, Text, ScrollView, SafeAreaView, Platform, StatusBar, StyleSheet, ActivityIndicator, Image, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../constants/theme';
 import { LANGUAGES, SCENARIOS, getPromptForSelection } from '../constants/data';
@@ -29,14 +29,14 @@ export const HomeScreen = () => {
 
     // Handle language selection
     const handleLanguageSelect = useCallback((language: Language) => {
-        setSelectedLanguage(language);
+        setSelectedLanguage(prev => prev?.id === language.id ? null : language);
         setFeedback(null); // Clear feedback when selection changes
         setError(null);
     }, []);
 
     // Handle scenario selection
     const handleScenarioSelect = useCallback((scenario: Scenario) => {
-        setSelectedScenario(scenario);
+        setSelectedScenario(prev => prev?.id === scenario.id ? null : scenario);
         setFeedback(null); // Clear feedback when selection changes
         setError(null);
     }, []);
@@ -49,7 +49,19 @@ export const HomeScreen = () => {
 
     // Handle response submission
     const handleSubmit = useCallback(async () => {
-        if (!selectedLanguage || !selectedScenario || !userResponse.trim()) {
+        // Validation with Alert Popup
+        if (!selectedLanguage) {
+            Alert.alert("Selection Required", "Please choose a language to continue.");
+            return;
+        }
+
+        if (!selectedScenario) {
+            Alert.alert("Selection Required", "Please choose a scenario to continue.");
+            return;
+        }
+
+        if (!userResponse.trim()) {
+            Alert.alert("Response Required", "Please type your response before sending.");
             return;
         }
 
@@ -91,8 +103,8 @@ export const HomeScreen = () => {
         setError(null);
     }, []);
 
-    // Check if submit should be disabled
-    const isSubmitDisabled = !selectedLanguage || !selectedScenario || !userResponse.trim() || isLoading;
+    // Only disable if currently loading
+    const isSubmitDisabled = isLoading;
 
     return (
         <LinearGradient
