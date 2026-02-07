@@ -40,19 +40,16 @@ export const SCENARIOS: Scenario[] = [
         id: 'cafe',
         title: 'Ordering Coffee',
         description: 'Order a drink and a snack at a local café.',
-        emoji: '☕',
     },
     {
         id: 'greeting',
         title: 'Meeting Someone',
         description: 'Introduce yourself to a stranger.',
-        emoji: '👋',
     },
     {
         id: 'directions',
         title: 'Asking Directions',
         description: 'Ask someone how to get to the train station.',
-        emoji: '🗺️',
     },
 ];
 

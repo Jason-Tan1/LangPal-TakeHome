@@ -31,7 +31,6 @@ export const ScenarioSelector: React.FC<ScenarioSelectorProps> = ({
                             onPress={() => onSelect(scenario)}
                         >
                             <View style={styles.header}>
-                                <Text style={styles.emoji}>{scenario.emoji}</Text>
                                 <Text style={[
                                     styles.title,
                                     isSelected ? styles.titleSelected : styles.titleUnselected
@@ -83,10 +82,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: SPACING.xs,
-    },
-    emoji: {
-        fontSize: FONT_SIZES.l,
-        marginRight: SPACING.s,
     },
     title: {
         fontSize: FONT_SIZES.m,

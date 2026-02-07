@@ -17,7 +17,6 @@ export const ConversationPrompt: React.FC<ConversationPromptProps> = ({
             <View style={styles.container}>
                 <Text style={styles.label}>Your Goal</Text>
                 <View style={styles.placeholderCard}>
-                    <Text style={styles.placeholderEmoji}>🎯</Text>
                     <Text style={styles.placeholderText}>
                         Select a language and scenario above to see your conversation goal.
                     </Text>
@@ -34,7 +33,6 @@ export const ConversationPrompt: React.FC<ConversationPromptProps> = ({
         <View style={styles.container}>
             <Text style={styles.label}>Your Goal</Text>
             <View style={styles.card}>
-                <Text style={styles.mascot}>🦜</Text>
                 <View style={styles.promptContent}>
                     <Text style={styles.text}>{prompt.goal}</Text>
                     {prompt.hints.length > 0 && (
@@ -74,10 +72,6 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 3,
     },
-    mascot: {
-        fontSize: 32,
-        marginRight: SPACING.m,
-    },
     promptContent: {
         flex: 1,
     },
@@ -114,11 +108,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: 'rgba(255, 255, 255, 0.3)',
         borderStyle: 'dashed',
-    },
-    placeholderEmoji: {
-        fontSize: 28,
-        marginRight: SPACING.m,
-        opacity: 0.7,
     },
     placeholderText: {
         color: 'rgba(255, 255, 255, 0.9)',
