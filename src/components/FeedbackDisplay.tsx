@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../constants/theme';
+import { moderateScale } from '../utils/responsive';
 import { Feedback } from '../types';
 
 interface FeedbackDisplayProps {
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     star: {
-        fontSize: 24,
+        fontSize: moderateScale(24),
         marginRight: 2,
     },
     scoreText: {
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
         color: COLORS.text,
         fontSize: FONT_SIZES.m,
         fontWeight: '500',
-        lineHeight: 24,
+        lineHeight: moderateScale(24),
         marginBottom: SPACING.m,
     },
     suggestionsContainer: {
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
     },
     suggestionsTitle: {
         color: COLORS.text,
-        fontSize: 13,
+        fontSize: moderateScale(13),
         fontWeight: '700',
         marginBottom: SPACING.s,
     },
@@ -167,15 +168,15 @@ const styles = StyleSheet.create({
     },
     bulletPoint: {
         color: COLORS.primary,
-        fontSize: 14,
+        fontSize: moderateScale(14),
         marginRight: SPACING.xs,
         fontWeight: '700',
     },
     suggestionText: {
         color: COLORS.textSecondary,
-        fontSize: 14,
+        fontSize: moderateScale(14),
         flex: 1,
-        lineHeight: 20,
+        lineHeight: moderateScale(20),
     },
     tryAgainButton: {
         backgroundColor: COLORS.primary,

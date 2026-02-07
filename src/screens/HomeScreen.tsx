@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, ScrollView, SafeAreaView, Platform, StatusBar, StyleSheet, Image, Alert, KeyboardAvoidingView } from 'react-native';
+import { View, Text, ScrollView, SafeAreaView, Platform, StatusBar, StyleSheet, Image, Alert, KeyboardAvoidingView, Keyboard } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../constants/theme';
+import { moderateScale, verticalScale } from '../utils/responsive';
 import { LANGUAGES, SCENARIOS, getPromptForSelection } from '../constants/data';
 import { submitResponse } from '../services/api';
 import { Language, Scenario, Prompt, Feedback } from '../types';
@@ -102,6 +103,29 @@ export const HomeScreen = () => {
     // Only disable if currently loading
     const isSubmitDisabled = isLoading;
 
+    // Keyboard visibility tracking
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+    React.useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            () => {
+                setKeyboardVisible(true);
+            }
+        );
+        const keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            () => {
+                setKeyboardVisible(false);
+            }
+        );
+
+        return () => {
+            keyboardDidHideListener.remove();
+            keyboardDidShowListener.remove();
+        };
+    }, []);
+
     // Create a ref for the ScrollView
     const scrollViewRef = React.useRef<ScrollView>(null);
 
@@ -109,7 +133,7 @@ export const HomeScreen = () => {
     const handleInputFocus = () => {
         setTimeout(() => {
             scrollViewRef.current?.scrollToEnd({ animated: true });
-        }, 150);
+        }, 160);
     };
 
     return (
@@ -135,7 +159,10 @@ export const HomeScreen = () => {
                         ref={scrollViewRef}
                         style={styles.scrollView}
                         showsVerticalScrollIndicator={false}
-                        contentContainerStyle={styles.content}
+                        contentContainerStyle={[
+                            styles.content,
+                            isKeyboardVisible && { paddingBottom: verticalScale(250) }
+                        ]}
                         keyboardShouldPersistTaps="handled"
                     >
                         {/* Language Selection */}
@@ -201,15 +228,15 @@ const styles = StyleSheet.create({
         marginBottom: SPACING.xs,
     },
     logo: {
-        width: 180,
-        height: 60,
+        width: moderateScale(180),
+        height: verticalScale(60),
     },
     scrollView: {
         flex: 1,
         paddingHorizontal: SPACING.m,
     },
     content: {
-        paddingBottom: 250, // Extra padding to ensure input is fully visible above keyboard
+        paddingBottom: SPACING.xl,
     },
     errorContainer: {
         backgroundColor: 'rgba(244, 67, 54, 0.9)',

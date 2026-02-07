@@ -1,3 +1,5 @@
+import { moderateScale, verticalScale } from '../utils/responsive';
+
 export const COLORS = {
     // Gradient Colors
     gradientStart: '#FFD54F', // Warm Yellow
@@ -27,24 +29,24 @@ export const COLORS = {
 };
 
 export const SPACING = {
-    xs: 4,
-    s: 8,
-    m: 16,
-    l: 24,
-    xl: 32,
+    xs: moderateScale(4),
+    s: moderateScale(8),
+    m: moderateScale(16),
+    l: moderateScale(24),
+    xl: moderateScale(32),
 };
 
 export const FONT_SIZES = {
-    s: 14,
-    m: 18,
-    l: 24,
-    xl: 32,
-    xxl: 40,
+    s: moderateScale(14),
+    m: moderateScale(18),
+    l: moderateScale(24),
+    xl: moderateScale(32),
+    xxl: moderateScale(40),
 };
 
 export const BORDER_RADIUS = {
-    s: 8,
-    m: 16,
-    l: 24,
-    xl: 32,
+    s: moderateScale(8),
+    m: moderateScale(16),
+    l: moderateScale(24),
+    xl: moderateScale(32),
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../constants/theme';
+import { verticalScale } from '../utils/responsive';
 
 interface ResponseInputProps {
     value: string;
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
         fontSize: FONT_SIZES.m,
         padding: SPACING.m,
         borderRadius: BORDER_RADIUS.m,
-        minHeight: 120,
+        minHeight: verticalScale(120),
         marginBottom: SPACING.m,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 4,
         elevation: 3,
-        minHeight: 52,
+        minHeight: verticalScale(52),
     },
     buttonDisabled: {
         backgroundColor: 'rgba(0, 0, 0, 0.2)',

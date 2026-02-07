@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../constants/theme';
+import { moderateScale } from '../utils/responsive';
 import { Prompt } from '../types';
 
 interface ConversationPromptProps {
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     text: {
         color: COLORS.text,
         fontSize: FONT_SIZES.m,
-        lineHeight: 26,
+        lineHeight: moderateScale(26),
         fontWeight: '500',
     },
     hintsContainer: {
@@ -108,16 +109,16 @@ const styles = StyleSheet.create({
     },
     hintButton: {
         backgroundColor: '#FFF8E1',
-        paddingVertical: 6,
-        paddingHorizontal: 12,
-        borderRadius: 20,
+        paddingVertical: moderateScale(6),
+        paddingHorizontal: moderateScale(12),
+        borderRadius: moderateScale(20),
         alignSelf: 'flex-start',
         borderWidth: 1,
         borderColor: COLORS.secondary,
     },
     hintButtonText: {
         color: COLORS.warning,
-        fontSize: 13,
+        fontSize: moderateScale(13),
         fontWeight: '600',
     },
     hintContent: {
@@ -125,13 +126,13 @@ const styles = StyleSheet.create({
     },
     hintLabel: {
         color: COLORS.warning,
-        fontSize: 12,
+        fontSize: moderateScale(12),
         fontWeight: '700',
         marginBottom: 2,
     },
     hintText: {
         color: COLORS.textSecondary,
-        fontSize: 13,
+        fontSize: moderateScale(13),
         fontStyle: 'italic',
     },
     // Placeholder styles
