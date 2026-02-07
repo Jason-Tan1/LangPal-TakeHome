@@ -50,3 +50,12 @@ export const BORDER_RADIUS = {
     l: moderateScale(24),
     xl: moderateScale(32),
 };
+
+export const FONTS = {
+    regular: 'Inter_400Regular',
+    medium: 'Inter_500Medium',
+    semiBold: 'Inter_600SemiBold',
+    bold: 'Inter_700Bold',
+    extraBold: 'Inter_800ExtraBold',
+    black: 'Inter_900Black',
+};

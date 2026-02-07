@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, ScrollView, SafeAreaView, Platform, StatusBar, StyleSheet, Image, Alert, KeyboardAvoidingView, Keyboard } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../constants/theme';
+import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS, FONTS } from '../constants/theme';
 import { moderateScale, verticalScale } from '../utils/responsive';
 import { LANGUAGES, SCENARIOS, getPromptForSelection } from '../constants/data';
 import { submitResponse } from '../services/api';
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     errorText: {
         color: '#FFFFFF',
         fontSize: FONT_SIZES.s,
-        fontWeight: '600',
+        fontFamily: FONTS.bold,
         textAlign: 'center',
     },
 });
