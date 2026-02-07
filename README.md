@@ -41,4 +41,4 @@ A simple mobile experience to help users practice real-world language conversati
 -   **TypeScript**: Used strict typing for all data models (`Language`, `Scenario`, `Prompt`, `Feedback`) to prevent runtime errors and improve developer experience.
 
 ## Screen Recording
-[Watch the Demo Video](https://mail.google.com/mail/u/0/#inbox/FMfcgzQfBkLLGCDPqFWtkJqsVDffJWQV?projector=1)
+[Watch the Demo Video](https://screenapp.io/app/v/M0wjdDbZTH)
