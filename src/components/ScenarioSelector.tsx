@@ -1,59 +1,50 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../constants/theme';
+import { Scenario } from '../types';
 
-export const ScenarioSelector = () => {
-    const scenarios = [
-        {
-            id: 'cafe',
-            title: 'Ordering Coffee',
-            desc: 'Order a drink and a snack at a local cafe.',
-            emoji: '☕',
-            selected: true
-        },
-        {
-            id: 'greeting',
-            title: 'Meeting Someone',
-            desc: 'Introduce yourself to a stranger.',
-            emoji: '👋',
-            selected: false
-        },
-        {
-            id: 'directions',
-            title: 'Asking Directions',
-            desc: 'Ask someone how to get to the train station.',
-            emoji: '🗺️',
-            selected: false
-        },
-    ];
+interface ScenarioSelectorProps {
+    scenarios: Scenario[];
+    selectedScenario: Scenario | null;
+    onSelect: (scenario: Scenario) => void;
+}
 
+export const ScenarioSelector: React.FC<ScenarioSelectorProps> = ({
+    scenarios,
+    selectedScenario,
+    onSelect,
+}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.label}>Choose a Scenario</Text>
             <View style={styles.grid}>
-                {scenarios.map((s) => (
-                    <TouchableOpacity
-                        key={s.id}
-                        style={[
-                            styles.card,
-                            s.selected ? styles.cardSelected : styles.cardUnselected
-                        ]}
-                        activeOpacity={0.8}
-                    >
-                        <View style={styles.header}>
-                            <Text style={styles.emoji}>{s.emoji}</Text>
-                            <Text style={[
-                                styles.title,
-                                s.selected ? styles.titleSelected : styles.titleUnselected
-                            ]}>
-                                {s.title}
+                {scenarios.map((scenario) => {
+                    const isSelected = selectedScenario?.id === scenario.id;
+                    return (
+                        <TouchableOpacity
+                            key={scenario.id}
+                            style={[
+                                styles.card,
+                                isSelected ? styles.cardSelected : styles.cardUnselected
+                            ]}
+                            activeOpacity={0.8}
+                            onPress={() => onSelect(scenario)}
+                        >
+                            <View style={styles.header}>
+                                <Text style={styles.emoji}>{scenario.emoji}</Text>
+                                <Text style={[
+                                    styles.title,
+                                    isSelected ? styles.titleSelected : styles.titleUnselected
+                                ]}>
+                                    {scenario.title}
+                                </Text>
+                            </View>
+                            <Text style={styles.description}>
+                                {scenario.description}
                             </Text>
-                        </View>
-                        <Text style={styles.description}>
-                            {s.desc}
-                        </Text>
-                    </TouchableOpacity>
-                ))}
+                        </TouchableOpacity>
+                    );
+                })}
             </View>
         </View>
     );
@@ -82,7 +73,7 @@ const styles = StyleSheet.create({
     },
     cardSelected: {
         borderColor: COLORS.primary,
-        backgroundColor: '#FFF8E1', // orange-50 equivalent
+        backgroundColor: '#FFF8E1',
     },
     cardUnselected: {
         borderColor: 'transparent',
